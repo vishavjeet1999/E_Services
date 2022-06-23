@@ -1,0 +1,107 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+  <title>E Services</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+  <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+  <link href="{% static 'css/login.css' %}" rel="stylesheet">
+  <style>
+    .form-control:focus {
+      border: 0px;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px rgba(35, 177, 32, 0.6);
+    }
+
+    input[type=checkbox] {
+      accent-color: green;
+    }
+  </style>
+</head>
+{% if message %}
+<div class="alert alert-danger alert-dismissible" style="position: absolute; top:0; width: 100%">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>{{message}}</strong>
+</div>
+{% endif %}
+{% if success %}
+<div class="alert alert-success alert-dismissible" style="position: absolute; top:0; width: 100%">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>{{success}}</strong>
+</div>
+{% endif %}
+
+<body class="text-center">
+  <form class="form-signin" action="/login/" method="post">
+    {% csrf_token %}
+    <img class="mb-0" src="{% static 'img/logo2.svg' %}" alt="" width="200" height="150">
+    <label for="inputEmail" class="sr-only ">Email address</label>
+    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required
+      autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" onclick="myFunction()"> Show Password
+      </label>
+    </div>
+    <button class="btn btn-lg btn-success btn-block mb-2" type="submit">Log In</button>
+    <p class="text-secondary">Don't have an account? <a href="/register" class="text-primary">Sign Up</a></p>
+  </form>
+
+
+  <!-- Optional JavaScript; choose one of the two! -->
+
+  <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+  <script>
+    function myFunction() {
+      var x = document.getElementById("inputPassword");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+  </script>
+
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <!--
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>

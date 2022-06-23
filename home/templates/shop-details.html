@@ -1,0 +1,181 @@
+{% extends "header_footer.html" %}
+
+{% block content %}
+<!-- Product Details Section Begin -->
+<section class="product-details mb-2">
+  <div class="container">
+    <div class="section-title">
+      <h2>Service Details</h2>
+    </div>
+    <div class="row" style="display: flex; justify-content: center">
+      <div class="col-lg-6 col-md-6">
+        <div class="product__details__pic">
+          <div class="product__details__pic__item">
+            <img class="product__details__pic__item--large" src="{{service.image.url}}" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="product__details__text">
+          <h3>{{service.service_name}}</h3>
+          <div class="product__details__price">
+            ₹{{service.service_charges}} Onwards
+          </div>
+          <p style="text-align: justify; text-justify: inter-word;" class="m-2">{{service.service_description}}</p>
+          <div class="product__details__rating pl-2">
+            <span> Email: </span>
+            <span>{{service.uploaded_by}}</span>
+          </div>
+          <div class="product__details__rating pl-2">
+            <span> Service Rating: </span>
+            <span>{{service.service_rating}}</span>
+            <i class="fa fa-star"></i>
+          </div>
+          {% if user.username == service.uploaded_by %}
+          <a href="/delete/{{service.id}}" class="btn btn-sm btn-danger mb-3 ml-2">Delete Service</a>
+          {% else %}
+          <form action="/home/giveRating/{{service.id}}" method="post" class="ml-3">
+            {% csrf_token %}
+            <div>
+              <div class="form-check form-check-inline">
+
+                <input class="form-check-input" type="radio" name="rating" id="inlineRadio1" value="1">
+                <label class="form-check-label" for="inlineRadio1">1</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="rating" id="inlineRadio2" value="2">
+                <label class="form-check-label" for="inlineRadio2">2</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="rating" id="inlineRadio2" value="3">
+                <label class="form-check-label" for="inlineRadio2">3</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="rating" id="inlineRadio2" value="4">
+                <label class="form-check-label" for="inlineRadio2">4</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="rating" id="inlineRadio2" value="5">
+                <label class="form-check-label" for="inlineRadio2">5</label>
+              </div>
+              <input class="btn-sm btn-danger mb-4" type="submit" value="Give Rating">
+            </div>
+          </form>
+          {% endif %}
+        </div>
+
+      </div>
+      <!-- Map Begin -->
+
+      <div class="map col-lg-12 mt-5">
+        <div class="section-title">
+          <h2>Location</h2>
+        </div>
+
+
+        <iframe
+          src="https://maps.google.com/maps?q={{service.service_lat}},{{service.service_long}}&hl=es;z=14&amp;output=embed"
+          height="420px" style="border: 0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+
+
+      </div>
+      <!-- Map End -->
+      <!-- Contact Form Begin -->
+      <div class="contact-form spad p-0 col-lg-12 mt-5 mb-0" style="padding-bottom: 0px;">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="section-title">
+                <h2>Send Message</h2>
+              </div>
+            </div>
+          </div>
+
+          <div>
+
+            <form action="/home/postComment" method="post" id="message_form">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-lg-12">
+                  <input type="text" name="comment" value="{{comment.comment}}" placeholder="Your message"
+                    style="width:70%; display:inline" id="cmt">
+                  <button type="submit" class="site-btn" style="width: 29%">SEND
+                  </button>
+                  <input type="hidden" name="serviceSno" value="{{service.id}}">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div style="overflow:scroll; max-height:400px; background-color: rgba(88,88,88,0.2);" class="p-3" id="comment_box">
+
+          </div>
+
+
+        </div>
+      </div>
+      <!-- Contact Form End -->
+
+    </div>
+  </div>
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    setInterval(() => {
+      $.ajax({ // create an AJAX call...
+        type: 'GET', // GET or POST
+        url: '/home/getComments/{{service.id}}',
+        success: function (response) { // on success..
+          $("#comment_box").html('');
+          response.comments.forEach(comment => {
+            if (comment.sid == "{{ service.id }}") {
+              let box = comment.user=='{{user.username}}'? `
+                <div class="row m-3">
+                  <div class="col-md-12" style="background-color: white;">
+                    <b>By: ${comment.user}</b><br>
+                    <p style="display: inline;">[${comment.timestamp}]</p>
+                    <a style="color:tomato" href="/home/deleteComment/${comment.sno}"> <i
+                        class="fa-solid fa-trash-can"></i> </a>
+                    <p style=" overflow-wrap: break-word;">Message: ${comment.comment}</p>
+                  </div>
+                </div>
+                `:`
+                <div class="row m-3">
+                  <div class="col-md-12" style="background-color: white;">
+                    <b>By: ${comment.user}</b><br>
+                    <p style="display: inline;">[${comment.timestamp}]</p>
+                    <p style=" overflow-wrap: break-word;">Message: ${comment.comment}</p>
+                  </div>
+                </div>
+                `
+              $("#comment_box").prepend(box);
+            }
+          });
+        },
+
+        error: function (e, x, r) { // on error..
+          $('#comment_box').html('error'); // update the DIV
+        },
+      });
+    }, 1000)
+    $('#message_form').submit(function () { // On form submit event
+      $.ajax({ // create an AJAX call...
+        data: $(this).serialize(), // get the form data
+        type: $(this).attr('method'), // GET or POST
+        url: $(this).attr('action'), // the file to call
+        success: function (response) { // on success..
+          $("#cmt").val('');
+        },
+        error: function (e, x, r) { // on error..
+          $('#comment_box').html('error'); // update the DIV
+        }
+      });
+
+      return false;
+    });
+  });
+
+
+</script>
+<!-- Product Details Section End -->
+{% endblock content %}

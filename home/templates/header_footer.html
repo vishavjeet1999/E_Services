@@ -1,0 +1,163 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Ogani Template" />
+    <meta name="keywords" content="Ogani, unica, creative, html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>E Services</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+        rel="stylesheet" />
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Humberger Begin -->
+    <div class="humberger__menu__overlay"></div>
+    <div class="humberger__menu__wrapper">
+        <div class="humberger__menu__logo">
+            <a href="#"><img src="{% static 'img/logo2.svg' %}" alt="" /></a>
+        </div>
+
+        <nav class="humberger__menu__nav mobile-menu">
+            <ul>
+                <li {% if 'home' in request.path %} class="active" {% endif %}><a href="/home">Home</a></li>
+
+                <li {% if 'category' in request.path %} class="active" {% endif %}>
+                    <a>Categories</a>
+                    <ul class="header__menu__dropdown">
+                        {% for category in categories %}
+                        <li><a class="ml-4" href="/category/{{category.category_name}}">{{category.category_name}}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li {% if 'newService' in request.path %} class="active" {% endif %}><a href="/newService/">New
+                        Service</a></li>
+                <li {% if 'about' in request.path %} class="active" {% endif %}><a href="/about/">About
+                        Us</a></li>
+                <li {% if 'myAccount' in request.path %} class="active" {% endif %}>
+                    <a>My Account</a>
+                    <ul class="header__menu__dropdown">
+                        <li><a class="ml-4" href="/myAccount/myServices/">My Services</a></li>
+                        <li><a class="ml-4" href="/myAccount/setting/">Change Password</a></li>
+                        <li><a class="ml-4" href="/logout/">Log Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="mobile-menu-wrap"></div>
+    </div>
+    <!-- Humberger End -->
+    <div style="height:100vh; display: flex; flex-direction:column; justify-content:space-between;">
+        <div class="h">
+
+            <header class="header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="header__logo">
+                                <a><img src="{% static 'img/logo2.svg' %}" alt="" /></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <nav class="header__menu">
+                                <ul>
+                                    <li {% if 'home' in request.path %} class="active" {% endif %}><a
+                                            href="/home">Home</a></li>
+
+                                    <li {% if 'category' in request.path %} class="active" {% endif %}>
+                                        <a>Categories</a>
+                                        <ul class="header__menu__dropdown">
+                                            {% for category in categories %}
+                                            <li><a href="/category/{{category.category_name}}">{{category.category_name}}
+                                                </a>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                    <li {% if 'newService' in request.path %} class="active" {% endif %}><a
+                                            href="/newService/">New
+                                            Service</a></li>
+                                    <li {% if 'about' in request.path %} class="active" {% endif %}><a
+                                            href="/about/">About
+                                            Us</a></li>
+                                    <li {% if 'myAccount' in request.path %} class="active" {% endif %}>
+                                        <a>My Account</a>
+                                        <ul class="header__menu__dropdown">
+                                            <li><a href="/myAccount/myServices/">My Services</a></li>
+                                            <li><a href="/myAccount/setting/">Change Password</a></li>
+                                            <li><a href="/logout/">Log Out</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+
+
+                    </div>
+                    <div class="humberger__open">
+                        <i class="fa fa-bars"></i>
+                    </div>
+                </div>
+            </header>
+            <!-- Header Section End -->
+        </div>
+        <div class="b">
+            {% block content %}
+
+            {% endblock content %}
+
+        </div>
+        <div class="f">
+
+            <footer class="footer spad p-2 m-0" style="bottom:0px; width: 100%">
+                <div class="container" style="display: flex; justify-content: center">
+                    <p>© 2022 Copyright: E-Service</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <!-- Header Section Begin -->
+
+
+
+    <!-- Js Plugins -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/mixitup.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

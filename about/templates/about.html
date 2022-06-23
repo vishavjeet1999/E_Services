@@ -1,0 +1,54 @@
+{% extends "header_footer.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container" style="display: flex; flex-direction:column; align-items:center">
+
+    <div class="section-title">
+        <h2>About Us</h2>
+    </div>
+    <div class="col-lg-8 col-md-7 order-md-1 order-1">
+        <div class="blog__details__text">
+            <p style="text-align: justify; text-justify: inter-word;">“E Services” will provide a platform where people
+                can acquire and
+                provide services online. A common
+                platform is provided where service provider and users can interact with each other.
+                Example: Let’s suppose you are a Painter and you are currently free, then you can create an account on
+                “E Services” by registering on our website. After that you have to upload your profile on our website.
+                Now anyone, who needs a painter will open our website, now he can choose a painter
+                from the list of painters depending upon the charges, rating etc.
+                Similarly, they can search any other service like plumber, carpenter, electrician, doctor, motor
+                mechanic, personal gym trainer, tutor, photographer, mason etc.
+            </p>
+            <p style="text-align: justify; text-justify: inter-word;">
+                The main problem faced by service providers is that they face difficulty in finding work. This problem
+                is mostly faced by those service providers who are new in the market.
+                And common people face difficulty in finding service providers.
+                E services can indirectly solve the problem of unemployment by providing a common platform where service
+                provider and users can interact with each other.
+
+            </p>
+
+        </div>
+        <div class="blog__details__content">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="blog__details__author">
+                        <div class="blog__details__author__pic">
+                            <img src="{% static 'img/vishavjeet.jpg' %}" alt="">
+                        </div>
+                        <div class="blog__details__author__text">
+                            <h6>Vishavjeet Sharma</h6>
+                            <span>Web Developer</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
